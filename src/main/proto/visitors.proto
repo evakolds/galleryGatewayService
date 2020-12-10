@@ -1,0 +1,39 @@
+syntax = "proto3";
+package com.gallery.visitor;
+option java_multiple_files = true;
+
+message VisitorResponse {
+  string id = 1;
+  string name = 2;
+  double money = 3;
+  int32 age = 4;
+}
+
+message VisitorRequest {
+  string name = 2;
+  double money = 3;
+  int32 age = 4;
+}
+
+message AllVisitorsRequest {
+
+}
+
+message AllVisitorsResponse {
+  repeated VisitorResponse visitors = 1;
+}
+
+message VisitorByIdRequest {
+  string id = 1;
+}
+
+message DeleteVisitorResponse {
+
+}
+
+service VisitorService {
+  rpc all(AllVisitorsRequest) returns (AllVisitorsResponse);
+  rpc add(VisitorRequest) returns (VisitorResponse);
+  rpc byId(VisitorByIdRequest) returns (VisitorResponse);
+  rpc delete (VisitorByIdRequest) returns (DeleteVisitorResponse);
+}

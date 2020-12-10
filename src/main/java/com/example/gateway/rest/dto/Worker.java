@@ -1,4 +1,4 @@
-package com.example.gateway.dto;
+package com.example.gateway.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

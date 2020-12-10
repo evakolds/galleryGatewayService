@@ -1,6 +1,6 @@
-package com.example.gateway.api;
+package com.example.gateway.rest;
 
-import com.example.gateway.dto.Exhibition;
+import com.example.gateway.rest.dto.Exhibition;
 import lombok.NoArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;

@@ -1,4 +1,4 @@
-package com.example.gateway.dto;
+package com.example.gateway.rest.dto;
 
 public enum Position {
     OWNER,

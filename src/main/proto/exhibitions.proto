@@ -1,0 +1,44 @@
+syntax = "proto3";
+package com.gallery.exhibition;
+option java_multiple_files = true;
+
+message ExhibitionResponse {
+  string id = 1;
+  string name = 2;
+  bool open = 3;
+  int32 price = 4;
+}
+
+message ExhibitionRequest {
+  string name = 1;
+  bool open = 2;
+  int32 price = 3;
+}
+
+message AllExhibitionsRequest {
+
+}
+
+message AllExhibitionsResponse {
+  repeated ExhibitionResponse exhibitions = 1;
+}
+
+message ExhibitionByIdRequest {
+  string id = 1;
+}
+
+message ExhibitionByNameRequest {
+  string name = 1;
+}
+
+message DeleteExhibitionResponse {
+
+}
+
+service ExhibitionService {
+  rpc all(AllExhibitionsRequest) returns (AllExhibitionsResponse);
+  rpc add(ExhibitionRequest) returns (ExhibitionResponse);
+  rpc byId(ExhibitionByIdRequest) returns (ExhibitionResponse);
+  rpc byName(ExhibitionByNameRequest) returns (ExhibitionResponse);
+  rpc delete (ExhibitionByIdRequest) returns (DeleteExhibitionResponse);
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+package com.gallery.worker;
+option java_multiple_files = true;
+
+enum Position {
+  OWNER = 0;
+  TICKETSELLER = 1;
+  MANAGER = 2;
+}
+
+message WorkerResponse {
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  int64 salary = 4;
+  Position position = 5;
+}
+
+message WorkerRequest {
+  string name = 1;
+  string surname = 2;
+  int64 salary = 3;
+  Position position = 4;
+}
+
+message AllWorkersRequest {
+
+}
+
+message AllWorkersResponse {
+  repeated WorkerResponse workers = 1;
+}
+
+message WorkerByIdRequest {
+  string id = 1;
+}
+
+message DeleteWorkerResponse {
+
+}
+
+service WorkerService {
+  rpc all(AllWorkersRequest) returns (AllWorkersResponse);
+  rpc add(WorkerRequest) returns (WorkerResponse);
+  rpc byId(WorkerByIdRequest) returns (WorkerResponse);
+  rpc delete (WorkerByIdRequest) returns (DeleteWorkerResponse);
+}
