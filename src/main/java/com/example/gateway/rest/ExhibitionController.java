@@ -2,6 +2,9 @@ package com.example.gateway.rest;
 
 import com.example.gateway.rest.dto.Exhibition;
 import lombok.NoArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +21,25 @@ public class ExhibitionController {
 
     private final String url = "http://gallery-exhibitions:8081/exhibition";
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @Value("${rabbitmq.exchange}")
+    private String exchange;
+    @Value("${film.routing-key}")
+    private String routingKey;
+
     @PostMapping
     public Exhibition createExhibition(@RequestBody Exhibition exhibition) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Exhibition> result =
                 restTemplate.postForEntity(url, exhibition, Exhibition.class);
         return result.getBody();
+    }
+
+    @PostMapping("mq")
+    public String createExhibitionMq(@RequestBody Exhibition exhibition) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, exhibition);
+        return "Sent successfully";
     }
 
     @GetMapping
